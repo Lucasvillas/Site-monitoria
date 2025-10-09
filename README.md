@@ -50,7 +50,7 @@ Esta página foi desenvolvida com HTML5, CSS3 e JavaScript puro, sem dependênci
 - Fundo roxo escuro
 - Informações institucionais
 - E-mail de contato: monitoria.ti@ceub.edu.br
-- Links para redes sociais (Facebook, Instagram, LinkedIn)
+- Links para redes sociais (Discord, Instagram, LinkedIn)
 - Copyright © 2025 CEUB-FATECS
 
 ## 🚀 Como Usar
