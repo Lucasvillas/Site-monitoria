@@ -147,8 +147,7 @@ body {
 /* Hero Content */
 .hero-content {
     text-align: center;
-    padding: 50px 20px;
-    padding-top: 100px;
+    padding: 80px 20px;
     animation: fadeInUp 1s ease-out;
 }
 
