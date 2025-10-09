@@ -460,6 +460,12 @@ body {
     object-fit: cover;
 }
 
+.workshop-image-tagua {
+    width: 50%;
+    height: 200px;
+    object-fit: cover;
+}
+
 .workshop-info {
     padding: 25px;
     flex-grow: 1;
