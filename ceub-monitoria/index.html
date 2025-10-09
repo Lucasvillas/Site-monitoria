@@ -15,7 +15,7 @@
         <div class="header-overlay">
             <div class="container">
                 <div class="logo-container">
-                    <img src="images/logo.png" alt="Logo CEUB" class="logo">
+                    <img src="images/marca ceub versao negativa lilas.png"logo" id="logo-img">
                 </div>
                 <nav class="nav">
                     <ul class="nav-list">
@@ -35,42 +35,88 @@
 
     <!-- Main Content -->
     <main class="main-content">
-        <section id="welcome" class="campus-section campus-dark">
-            <div class="container text-center">
-                <h2 class="section-title">Bem-vindo à Monitoria dos Cursos de TI do CEUB-FATECS</h2>
-                <p class="campus-description" style="max-width: 800px; margin: 0 auto 40px;">
-                    Explore as oportunidades de aprendizado e aprimoramento oferecidas pelos nossos programas de monitoria nos campi Asa Norte e Taguatinga. Nossos monitores estão prontos para te ajudar a alcançar seus objetivos acadêmicos e profissionais.
-                </p>
-                <div class="campus-selection-grid">
-                    <a href="asa-norte.html" class="campus-card-link">
-                        <div class="campus-selection-card">
-                            <img src="images/campus-asa-norte.jpg" alt="Campus Asa Norte" class="campus-selection-image">
-                            <h3 class="campus-selection-title">Campus Asa Norte</h3>
-                            <p class="campus-selection-description">Descubra as oficinas e monitores disponíveis no Campus Asa Norte.</p>
-                            <button class="btn-primary">Ver Oficinas</button>
+        <!-- Campus Asa Norte Section -->
+        <section id="campus-asa-norte" class="campus-section campus-dark">
+            <div class="container">
+                <div class="campus-grid">
+                    <div class="campus-image-wrapper">
+                        <img src="images/fotoceub.png" alt="Campus Asa Norte" class="campus-image">
+                    </div>
+                    <div class="campus-info">
+                        <h2 class="campus-title">Campus Asa Norte</h2>
+                        <p class="campus-description">
+                            O Campus Asa Norte do CEUB é referência em ensino de tecnologia da informação no Distrito Federal. 
+                            Com infraestrutura moderna e laboratórios equipados com tecnologia de ponta, oferecemos um ambiente 
+                            propício para o desenvolvimento acadêmico e profissional dos nossos alunos.
+                        </p>
+                        <p class="campus-description">
+                            Nossa equipe de monitores está sempre disponível para auxiliar os estudantes em nossos workshops além de outras 
+                            áreas fundamentais dos cursos de TI.
+                        </p>
+                        <div class="campus-highlights">
+                            <div class="highlight-item">
+                                <span class="highlight-icon">📚</span>
+                                <span class="highlight-text">Monitoria Presencial e Online</span>
+                            </div>
+                            <div class="highlight-item">
+                                <span class="highlight-icon">💻</span>
+                                <span class="highlight-text">Laboratórios Modernos</span>
+                            </div>
+                            <div class="highlight-item">
+                                <span class="highlight-icon">👥</span>
+                                <span class="highlight-text">Equipe Qualificada</span>
+                            </div>
                         </div>
-                    </a>
-                    <a href="taguatinga.html" class="campus-card-link">
-                        <div class="campus-selection-card">
-                            <img src="images/campus-taguatinga.jpg" alt="Campus Taguatinga" class="campus-selection-image">
-                            <h3 class="campus-selection-title">Campus Taguatinga</h3>
-                            <p class="campus-selection-description">Confira as oficinas e monitores do Campus de Taguatinga.</p>
-                            <button class="btn-primary">Ver Oficinas</button>
-                        </div>
-                    </a>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- Services Section (mantida do modelo anterior) -->
+        <!-- Campus Taguatinga Section -->
+        <section id="campus-taguatinga" class="campus-section campus-light">
+            <div class="container">
+                <div class="campus-grid campus-grid-reverse">
+                    <div class="campus-info">
+                        <h2 class="campus-title">Campus de Taguatinga</h2>
+                        <p class="campus-description">
+                            O Campus de Taguatinga representa a expansão do compromisso do CEUB com a excelência no ensino 
+                            de tecnologia. Localizado em uma região estratégica, o campus oferece fácil acesso e toda a 
+                            estrutura necessária para uma formação completa em TI.
+                        </p>
+                        <p class="campus-description">
+                            
+                        </p>
+                        <div class="campus-highlights">
+                            <div class="highlight-item">
+                                <span class="highlight-icon">🎯</span>
+                                <span class="highlight-text">Atendimento Personalizado</span>
+                            </div>
+                            <div class="highlight-item">
+                                <span class="highlight-icon">⏰</span>
+                                <span class="highlight-text">Horários Flexíveis</span>
+                            </div>
+                            <div class="highlight-item">
+                                <span class="highlight-icon">🚀</span>
+                                <span class="highlight-text">Projetos Práticos</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="campus-image-wrapper">
+                        <img src="images/CEUB - TAGUATINGA - Corredor principal.jpg" class="campus-image">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
         <section class="services-section">
             <div class="container">
                 <h2 class="section-title">Serviços Oferecidos</h2>
                 <div class="services-grid">
                     <div class="service-card">
                         <div class="service-icon">💡</div>
-                        <h3 class="service-title">Apoio em Disciplinas</h3>
-                        <p class="service-description">Auxílio nas disciplinas de programação, algoritmos, estrutura de dados e muito mais.</p>
+                        <h3 class="service-title">Workshops</h3>
+                        <p class="service-description">Workshops de programação, algoritmos, estrutura de dados, hardware e muito mais.</p>
                     </div>
                     <div class="service-card">
                         <div class="service-icon">🔧</div>
@@ -104,22 +150,17 @@
                     <h4 class="footer-heading">Contato</h4>
                     <p class="footer-text">
                         <span class="contact-icon">📧</span>
-                        <a href="mailto:monitoria.ti@ceub.edu.br" class="footer-link">monitoria.ti@ceub.edu.br</a>
+                        <a href="mailto:monitoriaticeub@gmail.com" class="footer-link">monitoriaticeub@gmail.com</a>
                     </p>
                     <div class="social-links">
                         <a href="#" class="social-link" aria-label="Facebook">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-discord" viewBox="0 0 16 16">
+                                <path d="M13.545 2.907a13.2 13.2 0 0 0-3.257-1.011.05.05 0 0 0-.052.025c-.141.25-.297.577-.406.833a12.2 12.2 0 0 0-3.658 0 8 8 0 0 0-.412-.833.05.05 0 0 0-.052-.025c-1.125.194-2.22.534-3.257 1.011a.04.04 0 0 0-.021.018C.356 6.024-.213 9.047.066 12.032q.003.022.021.037a13.3 13.3 0 0 0 3.995 2.02.05.05 0 0 0 .056-.019q.463-.63.818-1.329a.05.05 0 0 0-.01-.059l-.018-.011a9 9 0 0 1-1.248-.595.05.05 0 0 1-.02-.066l.015-.019q.127-.095.248-.195a.05.05 0 0 1 .051-.007c2.619 1.196 5.454 1.196 8.041 0a.05.05 0 0 1 .053.007q.121.1.248.195a.05.05 0 0 1-.004.085 8 8 0 0 1-1.249.594.05.05 0 0 0-.03.03.05.05 0 0 0 .003.041c.24.465.515.909.817 1.329a.05.05 0 0 0 .056.019 13.2 13.2 0 0 0 4.001-2.02.05.05 0 0 0 .021-.037c.334-3.451-.559-6.449-2.366-9.106a.03.03 0 0 0-.02-.019m-8.198 7.307c-.789 0-1.438-.724-1.438-1.612s.637-1.613 1.438-1.613c.807 0 1.45.73 1.438 1.613 0 .888-.637 1.612-1.438 1.612m5.316 0c-.788 0-1.438-.724-1.438-1.612s.637-1.613 1.438-1.613c.807 0 1.451.73 1.438 1.613 0 .888-.631 1.612-1.438 1.612"/>
                             </svg>
                         </a>
                         <a href="#" class="social-link" aria-label="Instagram">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zM12 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-                            </svg>
-                        </a>
-                        <a href="#" class="social-link" aria-label="Instagram">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zM12 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
                             </svg>
                         </a>
                         <a href="#" class="social-link" aria-label="LinkedIn">
@@ -131,7 +172,7 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p class="footer-copyright">© 2025 CEUB-FATECS. Todos os direitos reservados.</p>
+                <p class="footer-copyright">© 2025 MONITORIA-CEUB. Todos os direitos reservados.</p>
             </div>
         </div>
     </footer>
