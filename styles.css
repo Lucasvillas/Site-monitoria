@@ -682,7 +682,7 @@ body {
 }
 
 /* Animations */
-@keyframes fadeInDown {
+/* @keyframes fadeInDown {
     from {
         opacity: 0;
         transform: translateY(-30px);
@@ -691,9 +691,9 @@ body {
         opacity: 1;
         transform: translateY(0);
     }
-}
+} */
 
-@keyframes fadeInUp {
+/* @keyframes fadeInUp {
     from {
         opacity: 0;
         transform: translateY(30px);
@@ -702,9 +702,9 @@ body {
         opacity: 1;
         transform: translateY(0);
     }
-}
+} */
 
-/* Scroll Reveal Animation */
+/* Scroll Reveal Animation
 .campus-section,
 .service-card,
 .workshop-card,
@@ -713,7 +713,7 @@ body {
     opacity: 0;
     transform: translateY(30px);
     transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-}
+} */
 
 .fade-in-up {
     opacity: 1;
