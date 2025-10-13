@@ -166,7 +166,11 @@ body {
     letter-spacing: 1px;
 }
 
-/* Section Titles */
+/* Section Titles .*/
+/* Section Titles .*/
+/* Section Titles .*/
+/* Section Titles .*/
+/* Section Titles .*/
 .section-title {
     text-align: center;
     font-size: 2.5rem;
@@ -944,4 +948,9 @@ body {
     .footer-title {
         font-size: 1.5rem;
     }
+}
+
+.engenharia {
+    font-size: 2.0rem;
+    font-weight: 600;
 }
