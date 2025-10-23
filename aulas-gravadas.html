@@ -503,7 +503,7 @@
                     <div class="video-player-container" id="videoContainer">
                         <div class="coming-soon-container">
                             <img src="./images/coffee-shop-barista.png" alt="Em Breve" class="coming-soon-image"  style="width: 150px; height: auto;">
-                            <div class="coming-soon-text">Em Breve</div>
+                            <div class="coming-soon-text"></div>
                             <div class="coming-soon-subtitle">Selecione uma aula para assistir</div>
                         </div>
                     </div>
@@ -635,7 +635,7 @@
 
             videos.forEach((video, index) => {
                 const playlistItem = document.createElement('div');
-                playlistItem.className = `playlist-item ${index === 0 ? 'active' : ''}`;
+                playlistItem.className = `playlist-item`;
                 
                 let badgeHTML = '';
                 if (!video.available) {
