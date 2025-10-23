@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aulas Gravadas - Machine Learning | CEUB-FATECS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-purple: #3b004d;
+            --secondary-purple: #5a0070;
+            --light-purple: #7a1a8f;
+            --dark-gray: #2a2a2a;
+            --light-gray: #f5f5f5;
+            --white: #ffffff;
+            --text-dark: #333333;
+            --text-light: #666666;
+            --accent-pink: #e91e63;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--light-gray) 0%, var(--white) 100%);
+            color: var(--text-dark);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary-purple) 0%, var(--secondary-purple) 100%);
+            padding: 2rem 0;
+            box-shadow: 0 10px 30px rgba(59, 0, 77, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .header-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .header-title::before {
+            content: "▶";
+            font-size: 1.5rem;
+            color: var(--accent-pink);
+        }
+
+        .header-subtitle {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-top: 0.5rem;
+        }
+
+       
+        /* Classroom Button */
+        .classroom-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--accent-pink);
+            color: var(--white);
+            padding: 0.3rem 0.8rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .classroom-btn:hover {
+            background: linear-gradient(135deg, var(--accent-pink) 0%, #c2185b 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(233, 30, 99, 0.4);
+        }
+
+        .classroom-btn:active {
+            transform: translateY(0);
+        }
+
+        .classroom-btn-icon {
+            font-size: 1.3rem;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 3rem 0;
+        }
+
+        .content-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        /* Video Player Section */
+        .video-player-section {
+            background: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e0e0e0;
+        }
+
+        .video-player-container {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: #000;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .video-player-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Coming Soon State */
+        .coming-soon-container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--dark-gray) 0%, #1a1a1a 100%);
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .coming-soon-image {
+            max-width: 300px;
+            width: 100%;
+            margin-bottom: 2rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .coming-soon-text {
+            color: var(--white);
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .coming-soon-subtitle {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .video-info {
+            padding: 2rem;
+            background: var(--white);
+        }
+
+        .video-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-purple);
+            margin-bottom: 0.5rem;
+        }
+
+        .video-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .meta-icon {
+            color: var(--accent-pink);
+            font-weight: 600;
+        }
+
+        .video-description {
+            color: var(--text-light);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .video-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .tag {
+            display: inline-block;
+            background: linear-gradient(135deg, rgba(122, 26, 143, 0.15) 0%, rgba(233, 30, 99, 0.1) 100%);
+            color: var(--light-purple);
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            border: 1px solid rgba(122, 26, 143, 0.3);
+        }
+
+        /* Playlist Sidebar */
+        .playlist-sidebar {
+            background: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e0e0e0;
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+        }
+
+        .playlist-header {
+            background: linear-gradient(135deg, var(--primary-purple) 0%, var(--secondary-purple) 100%);
+            padding: 1.5rem;
+            color: var(--white);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .playlist-header::before {
+            content: "📺";
+            font-size: 1.2rem;
+        }
+
+        .playlist-count {
+            margin-left: auto;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+        }
+
+        .playlist-items {
+            max-height: 600px;
+            overflow-y: auto;
+            padding: 0.5rem;
+        }
+
+        .playlist-item {
+            padding: 1rem;
+            margin-bottom: 0.5rem;
+            background: var(--light-gray);
+            border: 2px solid transparent;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            gap: 0.75rem;
+            align-items: flex-start;
+            position: relative;
+        }
+
+        .playlist-item:hover {
+            background: rgba(122, 26, 143, 0.08);
+            border-color: var(--light-purple);
+            transform: translateX(4px);
+        }
+
+        .playlist-item.active {
+            background: linear-gradient(135deg, rgba(122, 26, 143, 0.15) 0%, rgba(233, 30, 99, 0.1) 100%);
+            border-color: var(--accent-pink);
+            box-shadow: 0 0 15px rgba(233, 30, 99, 0.2);
+        }
+
+        .playlist-item-number {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 32px;
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--primary-purple) 0%, var(--secondary-purple) 100%);
+            border-radius: 50%;
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: var(--white);
+            flex-shrink: 0;
+        }
+
+        .playlist-item.active .playlist-item-number {
+            background: var(--accent-pink);
+            box-shadow: 0 0 10px rgba(233, 30, 99, 0.5);
+        }
+
+        .playlist-item-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .playlist-item-title {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--text-dark);
+            margin-bottom: 0.25rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .playlist-item-duration {
+            font-size: 0.8rem;
+            color: var(--text-light);
+        }
+
+        .coming-soon-badge {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: var(--accent-pink);
+            color: var(--white);
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        /* Scrollbar Styling */
+        .playlist-items::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .playlist-items::-webkit-scrollbar-track {
+            background: var(--light-gray);
+        }
+
+        .playlist-items::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, var(--primary-purple) 0%, var(--secondary-purple) 100%);
+            border-radius: 3px;
+        }
+
+        .playlist-items::-webkit-scrollbar-thumb:hover {
+            background: var(--light-purple);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .classroom-btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .content-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            .playlist-sidebar {
+                position: static;
+            }
+
+            .header-title {
+                font-size: 1.3rem;
+            }
+
+            .video-title {
+                font-size: 1.2rem;
+            }
+
+            .video-meta {
+                font-size: 0.85rem;
+            }
+
+            .playlist-items {
+                max-height: 400px;
+            }
+
+            .coming-soon-image {
+                max-width: 200px;
+            }
+
+            .coming-soon-text {
+                font-size: 1.4rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+
+            .video-info {
+                padding: 1.5rem;
+            }
+
+            .main-content {
+                padding: 1.5rem 0;
+            }
+
+            .playlist-item {
+                padding: 0.75rem;
+            }
+
+            .playlist-item-title {
+                font-size: 0.85rem;
+            }
+
+            .coming-soon-image {
+                max-width: 150px;
+                margin-bottom: 1rem;
+            }
+
+            .coming-soon-text {
+                font-size: 1.2rem;
+                letter-spacing: 1px;
+            }
+
+            .coming-soon-subtitle {
+                font-size: 0.95rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div>
+                <h1 class="header-title">Aulas Gravadas</h1>
+                <p class="header-subtitle">Machine Learning - Campus Asa Norte</p>
+            </div>
+            <div class="header-buttons">
+                <a href="#" class="classroom-btn" onclick="window.open('https://classroom.google.com/c/ODEzMjI5MTcxMzg3?cjc=3kmaeje6', '_blank')">
+                    <span class="classroom-btn-icon">📚</span>
+                    <span>Classroom</span>
+                </a>
+                <a href="index.html" class="classroom-btn">Início</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <div class="content-wrapper">
+                <!-- Video Player -->
+                <section class="video-player-section">
+                    <div class="video-player-container" id="videoContainer">
+                        <div class="coming-soon-container">
+                            <img src="./images/coffee-shop-barista.png" alt="Em Breve" class="coming-soon-image"  style="width: 150px; height: auto;">
+                            <div class="coming-soon-text">Em Breve</div>
+                            <div class="coming-soon-subtitle">Selecione uma aula para assistir</div>
+                        </div>
+                    </div>
+                    <div class="video-info">
+                        <h2 class="video-title" id="videoTitle">Selecione uma aula</h2>
+                        <div class="video-meta">
+                            <div class="meta-item">
+                                <span class="meta-icon">📅</span>
+                                <span id="videoDate">-</span>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-icon">⏱️</span>
+                                <span id="videoDuration">-</span>
+                            </div>
+                        </div>
+                        <p class="video-description" id="videoDescription">
+                            Clique em uma aula na lista ao lado para começar a assistir.
+                        </p>
+                        <div class="video-tags" id="videoTags">
+                            <span class="tag">Machine Learning</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Playlist Sidebar -->
+                <aside class="playlist-sidebar">
+                    <div class="playlist-header">
+                        Playlist
+                        <span class="playlist-count" id="playlistCount">8</span>
+                    </div>
+                    <div class="playlist-items" id="playlistContainer">
+                        <!-- Playlist items will be generated by JavaScript -->
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Dados das aulas - EDITE AQUI COM SEUS VÍDEOS
+        // Defina 'available: true' para aulas gravadas e 'available: false' para as que ainda não foram gravadas
+        const videos = [
+            {
+                id: 1,
+                title: "Introdução ao Pandas e Manipulação de Dados",
+                date: "22 de Outubro, 2025",
+                duration: "01 hora e 30 minutos",
+                description: "Nesta aula, exploramos os conceitos fundamentais de Pandas, incluindo manipulação de DataFrames, limpeza de dados e visualização.",
+                url: "https://streamyard.com/e/7zibd8w6r5xc",
+                tags: ["Pandas", "DataFrames", "Analise de Dados"],
+                available: true
+            },
+            {
+                id: 2,
+                title: "Analise exploratória de dados e Modelos de Regressão",
+                date: "27 de Outubro, 2025",
+                duration: "01 hora e 30 minutos",
+                description: "Abordamos técnicas de análise exploratória de dados (EDA) e implementamos modelos de regressão linear e logística usando Scikit-Learn.",
+                url: "https://streamyard.com/e/7zibd8w6r5xc",
+                tags: ["Regressão", "Modelos", "Python"],
+                available: false
+            },
+            {
+                id: 3,
+                title: "Classificação com Árvores de Decisão",
+                date: "22 de Outubro, 2024",
+                duration: "58 minutos",
+                description: "Exploramos árvores de decisão, random forests e técnicas de validação cruzada para construir modelos de classificação robustos.",
+                url: "https://streamyard.com/e/7zibd8w6r5xc",
+                tags: ["Classificação", "Árvores", "Validação"],
+                available: false
+            },
+            {
+                id: 4,
+                title: "Tem que ver",
+                date: "24 de Outubro, 2024",
+                duration: "50 minutos",
+                description: "",
+                url: "https://streamyard.com/e/7zibd8w6r5xc",
+                tags: [],
+                available: false
+            },
+            {
+                id: 5,
+                title: "Tem que ver",
+                date: "29 de Outubro, 2024",
+                duration: "65 minutos",
+                description: "",
+                url: "https://streamyard.com/e/7zibd8w6r5xc",
+                tags: [],
+                available: false
+            },
+            {
+                id: 6,
+                title: "Tem que ver",
+                date: "31 de Outubro, 2024",
+                duration: "55 minutos",
+                description: "",
+                url: "https://streamyard.com/e/7zibd8w6r5xc",
+                tags: [],
+                available: false
+            },
+            {
+                id: 7,
+                title: "Tem que ver",
+                date: "05 de Novembro, 2024",
+                duration: "60 minutos",
+                description: "",
+                url: "https://streamyard.com/e/7zibd8w6r5xc",
+                tags: [],
+                available: false
+            },
+            {
+                id: 8,
+                title: "Tem que ver",
+                date: "07 de Novembro, 2024",
+                duration: "70 minutos",
+                description: "",
+                url: "https://streamyard.com/e/7zibd8w6r5xc",
+                tags: [],
+                available: false
+            }
+        ];
+
+        // Inicializar playlist
+        function initPlaylist() {
+            const playlistContainer = document.getElementById('playlistContainer');
+            playlistContainer.innerHTML = '';
+
+            videos.forEach((video, index) => {
+                const playlistItem = document.createElement('div');
+                playlistItem.className = `playlist-item ${index === 0 ? 'active' : ''}`;
+                
+                let badgeHTML = '';
+                if (!video.available) {
+                    badgeHTML = '<span class="coming-soon-badge">Em Breve</span>';
+                }
+                
+                playlistItem.innerHTML = `
+                    <div class="playlist-item-number">${video.id}</div>
+                    <div class="playlist-item-content">
+                        <div class="playlist-item-title">${video.title}</div>
+                        <div class="playlist-item-duration">${video.duration}</div>
+                    </div>
+                    ${badgeHTML}
+                `;
+                playlistItem.addEventListener('click', () => loadVideo(index));
+                playlistContainer.appendChild(playlistItem);
+            });
+
+            // Atualizar contagem
+            document.getElementById('playlistCount').textContent = videos.length;
+        }
+
+        // Carregar vídeo
+        function loadVideo(index) {
+            const video = videos[index];
+            const videoContainer = document.getElementById('videoContainer');
+
+            // Atualizar informações
+            document.getElementById('videoTitle').textContent = video.title;
+            document.getElementById('videoDate').textContent = video.date;
+            document.getElementById('videoDuration').textContent = video.duration;
+            document.getElementById('videoDescription').textContent = video.description;
+
+            // Atualizar tags
+            const tagsContainer = document.getElementById('videoTags');
+            tagsContainer.innerHTML = video.tags.map(tag => `<span class="tag">${tag}</span>`).join('');
+
+            // Mostrar vídeo ou "Em Breve"
+            if (video.available) {
+                videoContainer.innerHTML = `<iframe src="${video.url}" allowfullscreen></iframe>`;
+            } else {
+                videoContainer.innerHTML = `
+                    <div class="coming-soon-container">
+                        <img src="./images/coffee-shop-barista.png" alt="Em Breve" class="coming-soon-image" style="width: 150px; height: auto;">
+                        <div class="coming-soon-text">Em Breve</div>
+                        <div class="coming-soon-subtitle">Esta aula será disponibilizada em breve</div>
+                    </div>
+                `;
+            }
+
+            // Atualizar playlist ativo
+            document.querySelectorAll('.playlist-item').forEach((item, i) => {
+                item.classList.toggle('active', i === index);
+            });
+
+            // Scroll para o item ativo
+            const activeItem = document.querySelectorAll('.playlist-item')[index];
+            activeItem.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        // Inicializar ao carregar a página
+        document.addEventListener('DOMContentLoaded', initPlaylist);
+
+        // Suporte a teclado
+        document.addEventListener('keydown', (e) => {
+            const activeIndex = Array.from(document.querySelectorAll('.playlist-item')).findIndex(item => item.classList.contains('active'));
+            
+            if (e.key === 'ArrowUp' && activeIndex > 0) {
+                loadVideo(activeIndex - 1);
+            } else if (e.key === 'ArrowDown' && activeIndex < videos.length - 1) {
+                loadVideo(activeIndex + 1);
+            }
+        });
+    </script>
+</body>
+</html>
+
