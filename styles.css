@@ -276,10 +276,10 @@ body {
     margin-bottom: 25px;
 }
 
-/* Campus Detail Sections */
-.campus-grid {
+/* Monitoria Detail Sections */
+.monitoriaInfo-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1.1fr;
     gap: 60px;
     align-items: center;
 }
@@ -288,35 +288,75 @@ body {
     direction: ltr;
 }
 
-.campus-image-wrapper {
+.mago-spell-wrapper {
     position: relative;
-    overflow: hidden;
+    overflow: visible;
     border-radius: 15px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
     transition: transform 0.5s ease;
 }
 
-.campus-image-wrapper:hover {
+.mago-spell-wrapper:hover {
     transform: scale(1.05);
 }
 
-.campus-image {
+.mago-spell {
     width: 100%;
-    height: 400px;
-    object-fit: cover;
+    height: 600px;
+    object-fit: contain;
     display: block;
     transition: transform 0.5s ease;
+
+    filter: drop-shadow(0 10px 25px rgba(180, 120, 255, 0.35));
 }
 
-.campus-image-wrapper:hover .campus-image {
+.mago-duv {
+    width: 100%;
+    height: 600px;
+    object-fit: contain;
+    display: block;
+    transition: transform 0.5s ease;
+
+    filter: drop-shadow(0 10px 25px rgba(0, 0, 0, 0.55));
+}
+
+.mago-spell-wrapper:hover .mago-spell {
     transform: scale(1.1);
 }
 
-.campus-info {
+.mago-spell-wrapper:hover .mago-duv {
+    transform: scale(1.1);
+}
+
+.monitoria-info {
     padding: 20px;
 }
 
-.campus-title {
+.iniciativas-info {
+    padding: 20px;
+}
+
+.iniciativas-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 50px;
+    position: relative;
+    padding-bottom: 15px;
+}
+
+.iniciativas-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 35%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: var(--accent-pink);
+    border-radius: 2px;
+}
+
+.monitoria-title {
     font-size: 2.5rem;
     font-weight: 700;
     margin-bottom: 25px;
@@ -324,7 +364,7 @@ body {
     padding-bottom: 15px;
 }
 
-.campus-title::after {
+.monitoria-title::after {
     content: '';
     position: absolute;
     bottom: 0;
@@ -335,7 +375,7 @@ body {
     border-radius: 2px;
 }
 
-.campus-description {
+.monitoria-description {
     font-size: 1.1rem;
     line-height: 1.8;
     margin-bottom: 20px;
@@ -482,6 +522,22 @@ body {
     font-weight: 600;
     color: var(--primary-purple);
     margin-bottom: 10px;
+}
+
+.cards-title {
+    font-size: 1.8rem;
+    font-weight: 600;
+    text-align: center;
+    margin-top: 40px;
+    color: var(--dark-gray);
+    margin-bottom: 10px;
+}
+
+.card-schedule {
+    font-size: 0.95rem;
+    text-align: center;
+    color: var(--text-light);
+    margin-bottom: 40px;
 }
 
 .workshop-schedule {
