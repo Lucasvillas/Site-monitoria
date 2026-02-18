@@ -67,6 +67,7 @@ body {
 .header {
     position: relative;
     background: url('images/campus-hero.jpg') center/cover no-repeat;
+    background-color: var(--primary-purple);
     color: var(--white);
     overflow: hidden;
 }
@@ -510,6 +511,14 @@ body {
     object-fit: cover;
 }
 
+/* Fallback: garante proporção correta mesmo quando a imagem não usa classe específica */
+.workshop-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+}
+
 .workshop-info {
     padding: 25px;
     flex-grow: 1;
@@ -821,6 +830,16 @@ body {
         gap: 40px;
     }
 
+    .monitoriaInfo-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .mago-spell,
+    .mago-duv {
+        height: 420px;
+    }
+
     .campus-title::after {
         left: 50%;
         transform: translateX(-50%);
@@ -831,7 +850,7 @@ body {
     }
 
     .workshop-grid {
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
     }
 
     .workshop-header {
@@ -860,11 +879,22 @@ body {
     .social-links {
         justify-content: center;
     }
+
+    .footer-text {
+        justify-content: center;
+        flex-wrap: wrap;
+        word-break: break-word;
+    }
 }
 
 @media (max-width: 768px) {
     .header {
-        height: 500px;
+        min-height: 0;
+        height: auto;
+    }
+
+    .header-overlay {
+        min-height: 100%;
     }
 
     .hero-title {
@@ -888,6 +918,14 @@ body {
         padding: 6px 12px;
     }
 
+    .container {
+        padding: 0 16px;
+    }
+
+    .hero-content {
+        padding: 60px 16px;
+    }
+
     .campus-section {
         padding: 60px 0;
     }
@@ -900,6 +938,16 @@ body {
         font-size: 1rem;
     }
 
+    .monitoria-description {
+        font-size: 1rem;
+        text-align: left;
+    }
+
+    .mago-spell,
+    .mago-duv {
+        height: 320px;
+    }
+
     .section-title {
         font-size: 2rem;
     }
@@ -909,6 +957,10 @@ body {
     }
 
     .services-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .workshop-grid {
         grid-template-columns: 1fr;
     }
 
@@ -936,7 +988,8 @@ body {
 
 @media (max-width: 480px) {
     .header {
-        height: 450px;
+        min-height: 0;
+        height: auto;
     }
 
     .hero-title {
@@ -945,6 +998,23 @@ body {
 
     .hero-subtitle {
         font-size: 1rem;
+    }
+
+    .container {
+        padding: 0 12px;
+    }
+
+    .hero-content {
+        padding: 40px 12px;
+    }
+
+    .nav-list {
+        gap: 10px;
+    }
+
+    .nav-link {
+        font-size: 0.85rem;
+        padding: 6px 10px;
     }
 
     .section-title {
@@ -961,6 +1031,17 @@ body {
 
     .campus-selection-card {
         padding-bottom: 20px;
+    }
+
+    .campus-selection-image,
+    .workshop-image,
+    .workshop-image-tagua {
+        height: 170px;
+    }
+
+    .mago-spell,
+    .mago-duv {
+        height: 240px;
     }
 
     .campus-selection-title {
@@ -1000,6 +1081,11 @@ body {
 
     .footer {
         padding: 40px 0 20px;
+    }
+
+    .footer-text {
+        flex-direction: column;
+        gap: 6px;
     }
 
     .footer-title {
