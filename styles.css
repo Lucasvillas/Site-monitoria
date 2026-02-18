@@ -67,7 +67,7 @@ body {
 .header {
     position: relative;
     background: url('images/campus-hero.jpg') center/cover no-repeat;
-    background-color: var(--primary-purple);
+    /* background-color: var(--primary-purple); */
     color: var(--white);
     overflow: hidden;
 }
