@@ -1,6 +1,8 @@
 # 🚀 Site da Monitoria de TI - CEUB
 
 Este repositório contém o código-fonte do portal oficial do grupo de monitoria. O site serve como um ponto de encontro digital para estudantes de tecnologia, oferecendo recursos de aprendizado, suporte acadêmico e uma vitrine para projetos colaborativos.
+Link do site:
+https://site-monitoria-blue.vercel.app/
 
 ---
 
@@ -22,7 +24,6 @@ O portal foi desenvolvido para centralizar as iniciativas do grupo de monitoria,
 O projeto utiliza as seguintes tecnologias:
 - **HTML5 / CSS3:** Estruturação e estilização.
 - **JavaScript:** Lógica e interatividade.
-- **[Inserir Framework se houver, ex: React/Vue]:** Framework de desenvolvimento.
 - **Vercel:** Hospedagem e Deploy contínuo.
 
 ---
