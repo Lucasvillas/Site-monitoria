@@ -9,6 +9,245 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="icon" type="image/x-icon" href="/images/logo mago minimalista.png">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+      .controles {
+        margin: 15px 0;
+        text-align: center;
+      }
+      button {
+        display: inline-block;
+        background: var(--accent-pink);
+        color: var(--white);
+        padding: 12px 25px;
+        border-radius: 30px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+        border: none;
+        cursor: pointer;
+        font-size: 1rem;
+      }
+      button:hover {
+        background-color: var(--light-purple);
+	    transform: translateY(-3px);
+      }
+
+      #area-exportacao {
+        background: #fff;
+        padding: 30px;
+        width: 1200px;
+        margin: 0 auto;
+        border-radius: 8px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+      }
+
+      /* Sistema de grid de 4 colunas */
+      .linha-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 15px;
+      }
+
+      /* Grid dos meses */
+      .mes {
+        border: 1px solid #e0e0e0;
+        border-radius: 6px;
+        overflow: hidden;
+      }
+      .mes-titulo {
+        background-color: #7a1a8f;
+        color: white;
+        text-align: center;
+        font-weight: bold;
+        padding: 8px 0;
+        text-transform: uppercase;
+        font-size: 0.85em;
+        letter-spacing: 1px;
+      }
+      .grid-dias {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        text-align: center;
+        background: #fff;
+      }
+      .cabecalho-dia {
+        font-weight: bold;
+        color: #666;
+        padding: 6px 0;
+        font-size: 0.7em;
+        border-bottom: 1px solid #eee;
+        background: #fafafa;
+      }
+      .dia {
+        padding: 6px 0;
+        min-height: 35px;
+        font-size: 0.8em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #555;
+        transition: filter 0.2s;
+      }
+      .dia.vazio {
+        border: none;
+      }
+
+      /* Efeito hover (aparece o nome do ciclo) */
+      .dia.com-ciclo {
+        position: relative;
+        cursor: pointer;
+      }
+      .dia.com-ciclo:hover {
+        filter: brightness(0.95);
+      }
+      .dia.com-ciclo::after {
+        content: attr(data-tooltip);
+        position: absolute;
+        bottom: 80%;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #222;
+        color: #fff;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 0.8em;
+        white-space: nowrap;
+        opacity: 0;
+        pointer-events: none;
+        transition:
+          opacity 0.2s,
+          bottom 0.2s;
+        z-index: 10;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      }
+      .dia.com-ciclo:hover::after {
+        opacity: 1;
+        bottom: 100%;
+      }
+
+      /* Legenda alinhada aos meses */
+      .legenda-grid {
+        border-top: 2px dashed #eee;
+        padding-top: 20px;
+        margin-top: 20px;
+      }
+      .bloco-ciclo {
+        background: #f9f9f9;
+        border-top: 4px solid #ccc;
+        padding: 12px;
+        border-radius: 6px;
+        border-left: 1px solid #eee;
+        border-right: 1px solid #eee;
+        border-bottom: 1px solid #eee;
+      }
+      .bloco-ciclo h3 {
+        margin-bottom: 10px;
+        font-size: 0.95em;
+        border-bottom: 1px solid #f0f0f0;
+        padding-bottom: 6px;
+      }
+
+      .lista-oficinas {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      .oficina-card {
+        background: #fafafa;
+        border: 1px solid #eee;
+        padding: 8px;
+        border-radius: 4px;
+      }
+      .oficina-nome {
+        font-weight: bold;
+        color: #222;
+        display: block;
+        margin-bottom: 4px;
+        font-size: 0.75em;
+      }
+      .oficina-detalhes {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px;
+        align-items: center;
+        font-size: 0.65em;
+      }
+
+      /* Badges da legenda */
+      .badge {
+        padding: 2px 4px;
+        border-radius: 3px;
+        display: inline-flex;
+        align-items: center;
+        gap: 3px;
+      }
+      .badge-dia {
+        background: #e0e0e0;
+        color: #444;
+      }
+      .badge-hora {
+        background: #eeeeee;
+        color: #555;
+      }
+      .badge-formato.presencial {
+        background: #e3f2fd;
+        color: #1565c0;
+        font-weight: bold;
+        border: 1px solid #bbdefb;
+      }
+      .badge-formato.online {
+        background: #e8f5e9;
+        color: #2e7d32;
+        font-weight: bold;
+        border: 1px solid #c8e6c9;
+      }
+      .badge-indefinido {
+        background: #fff3e0;
+        color: #e65100;
+        font-style: italic;
+        border: 1px dashed #ffb74d;
+      }
+
+      /* Seção do cabeçalho */
+      #cabecalho {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 25px;
+        padding-bottom: 40px;
+        border-bottom: 2px solid #e0e0e0;
+      }
+      .titulos-cabecalho {
+        margin-top: 25px;
+        text-align: center;
+      }
+      .titulos-cabecalho h1 {
+        font-size: 2rem;
+        color: #222;
+        margin-bottom: 5px;
+        letter-spacing: 1px;
+      }
+      .titulos-cabecalho h2 {
+        font-size: 1rem;
+        color: #7a1a8f;
+        font-weight: 600;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+      }
+      .logo-cabecalho {
+        width: 80px;
+        height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .logo-cabecalho img,
+      .logo-cabecalho svg {
+        max-width: 100%;
+        max-height: 100%;
+      }
+    </style>
 </head>
 <body>
     <!-- Header -->
@@ -33,6 +272,37 @@
             </div>
         </div>
     </header>
+
+    <div id="area-exportacao">
+      <div id="cabecalho">
+        <div class="logo-cabecalho">
+          <img
+            src="https://institucional.uniceub.br/hubfs/BrandCenter/img/logo-ceub-colorida.png"
+            alt="Logo UniCEUB"
+          />
+        </div>
+
+        <div class="titulos-cabecalho">
+          <h1>CALENDÁRIO DE OFICINAS</h1>
+          <h2>Ciência da Computação & Ciência de Dados • 2026.1</h2>
+        </div>
+
+        <div class="logo-cabecalho">
+          <img
+            src="https://i.postimg.cc/ZKTjXvMh/mago.png"
+            alt="Logo mago da monitoria"
+          />
+        </div>
+      </div>
+      <div id="calendario-container" class="linha-grid"></div>
+      <div id="legenda-container" class="linha-grid legenda-grid"></div>
+    </div>
+
+    <div class="controles">
+      <button onclick="exportarParaImagem()">
+        Exportar Imagem do Calendário
+      </button>
+    </div>
 
     <!-- Main Content - Oficinas Asa Norte -->
     <main class="main-content">
@@ -269,6 +539,228 @@
     </footer>
 
     <script src="script.js"></script>
+
+    <script>
+      const dados = {
+        ciclos: [
+          {
+            id: "ciclo-0",
+            nome: "Ciclo 0 (02/03 a 13/03)",
+            dataInicio: "2026-03-02",
+            dataFim: "2026-03-13",
+            corBase: "#b3e5fc",
+            corBorda: "#0288d1",
+            oficinas: [
+              {
+                nome: "Fundamentos da Computação",
+                dias: "Seg, Qua e Sex",
+                hora: "11h às 13h",
+                formato: "Presencial",
+              },
+              {
+                nome: "Fundamentos da Computação",
+                dias: "Seg, Qua e Sex",
+                hora: "17h às 19h",
+                formato: "Presencial",
+              },
+              {
+                nome: "Fundamentos para Ciência de Dados",
+                dias: "Seg, Ter e Qui",
+                hora: "17h às 19h",
+                formato: "Online",
+              },
+            ],
+          },
+          {
+            id: "ciclo-1",
+            nome: "Ciclo 1 (16/03 a 27/03)",
+            dataInicio: "2026-03-16",
+            dataFim: "2026-03-27",
+            corBase: "#c8e6c9",
+            corBorda: "#388e3c",
+            oficinas: [
+              {
+                nome: "Criação de Modelos de Personagens 3D",
+                dias: "Seg, Qua e Sex",
+                hora: "11h às 13h",
+                formato: "Presencial",
+              },
+              {
+                nome: "Oficina de HTML/CSS",
+                dias: "Ter e Qui",
+                hora: "11h às 13h",
+                formato: "Presencial",
+              },
+              {
+                nome: "Lógica de Programação",
+                dias: "Seg, Qua e Sex",
+                hora: "17h às 19h",
+                formato: "Presencial",
+              },
+              {
+                nome: "Oficina de Linux",
+                dias: "Ter e Qui",
+                hora: "17h às 19h",
+                formato: "Presencial",
+              },
+              {
+                nome: "Ciência de Dados - Ferramentas e Frameworks",
+                dias: "Seg, Ter e Qui",
+                hora: "17h às 19h",
+                formato: "Online",
+              },
+            ],
+          },
+          {
+            id: "ciclo-2",
+            nome: "Ciclo 2 (06/04 a 30/04)",
+            dataInicio: "2026-04-06",
+            dataFim: "2026-04-30",
+            corBase: "#ffe0b2",
+            corBorda: "#f57c00",
+            oficinas: [
+              { nome: "Criação de Modelos de Personagens 3D" },
+              { nome: "Ciência de Dados - Machine Learning" },
+              { nome: "A confirmar" },
+              { nome: "A confirmar" },
+              { nome: "A confirmar" },
+            ],
+          },
+          {
+            id: "ciclo-3",
+            nome: "Ciclo 3 (11/05 a 05/06)",
+            dataInicio: "2026-05-11",
+            dataFim: "2026-06-05",
+            corBase: "#e1bee7",
+            corBorda: "#7b1fa2",
+            oficinas: [
+              { nome: "Criação de Modelos de Personagens 3D" },
+              { nome: "Ciência de Dados - Introdução a Deep Learning" },
+              { nome: "A confirmar" },
+              { nome: "A confirmar" },
+              { nome: "A confirmar" },
+            ],
+          },
+        ],
+      };
+
+      const mesesParaGerar = [
+        { mes: 2, ano: 2026, nome: "Março" },
+        { mes: 3, ano: 2026, nome: "Abril" },
+        { mes: 4, ano: 2026, nome: "Maio" },
+        { mes: 5, ano: 2026, nome: "Junho" },
+      ];
+
+      // Função de verificação de data
+      function getCicloDoDia(ano, mes, dia, diaDaSemana) {
+        if (diaDaSemana === 0 || diaDaSemana === 6) return null;
+        const dataAtual = new Date(ano, mes, dia);
+        for (const ciclo of dados.ciclos) {
+          const [iAno, iMes, iDia] = ciclo.dataInicio.split("-").map(Number);
+          const [fAno, fMes, fDia] = ciclo.dataFim.split("-").map(Number);
+          const dataInicio = new Date(iAno, iMes - 1, iDia);
+          const dataFim = new Date(fAno, fMes - 1, fDia);
+          if (dataAtual >= dataInicio && dataAtual <= dataFim) return ciclo;
+        }
+        return null;
+      }
+
+      // Renderiza o calendário
+      const containerCalendario = document.getElementById(
+        "calendario-container",
+      );
+
+      mesesParaGerar.forEach((config) => {
+        const divMes = document.createElement("div");
+        divMes.className = "mes";
+
+        let html = `<div class="mes-titulo">${config.nome}</div>`;
+        html += `<div class="grid-dias">
+                <div class="cabecalho-dia">D</div><div class="cabecalho-dia">S</div>
+                <div class="cabecalho-dia">T</div><div class="cabecalho-dia">Q</div>
+                <div class="cabecalho-dia">Q</div><div class="cabecalho-dia">S</div>
+                <div class="cabecalho-dia">S</div>`;
+
+        const primeiroDiaSemana = new Date(config.ano, config.mes, 1).getDay();
+        const totalDias = new Date(config.ano, config.mes + 1, 0).getDate();
+
+        for (let i = 0; i < primeiroDiaSemana; i++)
+          html += `<div class="dia vazio"></div>`;
+
+        for (let dia = 1; dia <= totalDias; dia++) {
+          const diaDaSemana = new Date(config.ano, config.mes, dia).getDay();
+          const ciclo = getCicloDoDia(config.ano, config.mes, dia, diaDaSemana);
+
+          if (ciclo) {
+            html += `<div class="dia com-ciclo" data-tooltip="${ciclo.nome.split(" (")[0]}" style="background-color: ${ciclo.corBase}; font-weight: bold; color: #000;">${dia}</div>`;
+          } else {
+            html += `<div class="dia">${dia}</div>`;
+          }
+        }
+
+        html += `</div>`;
+        divMes.innerHTML = html;
+        containerCalendario.appendChild(divMes);
+      });
+
+      // Renderiza a legenda
+      const containerLegenda = document.getElementById("legenda-container");
+      let htmlLegenda = "";
+
+      dados.ciclos.forEach((ciclo) => {
+        htmlLegenda += `
+        <div class="bloco-ciclo" style="border-top-color: ${ciclo.corBorda};">
+          <h3 style="color: ${ciclo.corBorda}">${ciclo.nome}</h3>
+          <div class="lista-oficinas">
+            ${ciclo.oficinas
+              .map((oficina) => {
+                const badgeDia = oficina.dias
+                  ? `<span class="badge badge-dia">📅 ${oficina.dias}</span>`
+                  : "";
+                const badgeHora = oficina.hora
+                  ? `<span class="badge badge-hora">⏰ ${oficina.hora}</span>`
+                  : "";
+                const formatoClass = oficina.formato
+                  ? oficina.formato.toLowerCase()
+                  : "";
+                const badgeFormato = oficina.formato
+                  ? `<span class="badge badge-formato ${formatoClass}">${oficina.formato}</span>`
+                  : "";
+                const infoFaltante =
+                  !oficina.dias && !oficina.hora
+                    ? `<span class="badge badge-indefinido">A definir</span>`
+                    : "";
+
+                return `
+                <div class="oficina-card">
+                  <span class="oficina-nome">${oficina.nome}</span>
+                  <div class="oficina-detalhes">
+                    ${badgeDia} ${badgeHora} ${badgeFormato} ${infoFaltante}
+                  </div>
+                </div>
+              `;
+              })
+              .join("")}
+          </div>
+        </div>
+      `;
+      });
+      containerLegenda.innerHTML = htmlLegenda;
+
+      // Função de exportar para imagem
+      function exportarParaImagem() {
+        const elemento = document.getElementById("area-exportacao");
+        html2canvas(elemento, {
+          scale: 2,
+          useCORS: true,
+        }).then((canvas) => {
+          const link = document.createElement("a");
+          link.download = "calendario-monitorias-2026.png";
+          link.href = canvas.toDataURL("image/png");
+          link.click();
+        });
+      }
+    </script>
 </body>
 </html>
 
