@@ -10,7 +10,9 @@
     <link rel="icon" type="image/x-icon" href="/images/logo mago minimalista.png">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <style>
+
+    <!-- Este bloco style contém somente estilos do calendário de oficinas -->
+    <style> 
       .controles {
         margin: 15px 0;
         text-align: center;
@@ -23,21 +25,24 @@
         border-radius: 30px;
         text-decoration: none;
         font-weight: 600;
-        transition: background-color 0.3s ease, transform 0.3s ease;
+        transition:
+          background-color 0.3s ease,
+          transform 0.3s ease;
         border: none;
         cursor: pointer;
         font-size: 1rem;
       }
       button:hover {
         background-color: var(--light-purple);
-	    transform: translateY(-3px);
+        transform: translateY(-3px);
       }
 
       #area-exportacao {
         background: #fff;
         padding: 30px;
-        width: 1200px;
-        margin: 0 auto;
+        width: 100%;
+        max-width: 1200px;
+        margin: 50px auto 20px auto;
         border-radius: 8px;
         box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
       }
@@ -140,6 +145,7 @@
         border-left: 1px solid #eee;
         border-right: 1px solid #eee;
         border-bottom: 1px solid #eee;
+        transition: background-color 0.2s;
       }
       .bloco-ciclo h3 {
         margin-bottom: 10px;
@@ -161,7 +167,7 @@
       }
       .oficina-nome {
         font-weight: bold;
-        color: #222;
+        color: #333;
         display: block;
         margin-bottom: 4px;
         font-size: 0.75em;
@@ -219,12 +225,11 @@
         border-bottom: 2px solid #e0e0e0;
       }
       .titulos-cabecalho {
-        margin-top: 25px;
         text-align: center;
       }
       .titulos-cabecalho h1 {
         font-size: 2rem;
-        color: #222;
+        color: #333;
         margin-bottom: 5px;
         letter-spacing: 1px;
       }
@@ -247,6 +252,141 @@
         max-width: 100%;
         max-height: 100%;
       }
+
+      /* Configs de exportação do calendário mobile */
+      .forcar-desktop {
+        width: 1200px !important;
+        max-width: none !important;
+        padding: 30px !important;
+      }
+      .forcar-desktop .linha-grid {
+        grid-template-columns: repeat(4, 1fr) !important;
+      }
+      .forcar-desktop #cabecalho {
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        gap: 0 !important;
+      }
+      .forcar-desktop .logo-cabecalho {
+        order: 0 !important;
+        width: 80px !important;
+        height: 80px !important;
+      }
+      .forcar-desktop .titulos-cabecalho {
+        order: 0 !important;
+        width: auto !important;
+        margin-top: 0 !important;
+      }
+      .forcar-desktop .titulos-cabecalho h1 {
+        font-size: 2rem !important;
+      }
+      .forcar-desktop .titulos-cabecalho h2 {
+        font-size: 1rem !important;
+      }
+
+      .forcar-desktop .lista-oficinas {
+        display: flex !important;
+        max-height: none !important;
+        opacity: 1 !important;
+        overflow: visible !important;
+        margin-top: 0 !important;
+        padding-top: 0 !important;
+        border-top: none !important;
+      }
+      .forcar-desktop .accordion-icon {
+        display: none !important;
+      }
+
+      .accordion-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: default;
+      }
+      .accordion-icon {
+        display: none;
+        font-size: 0.8em;
+        transition: transform 0.2s;
+      }
+
+      @media (max-width: 1024px) {
+        .linha-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .titulos-cabecalho h1 {
+          font-size: 1.6rem;
+        }
+      }
+
+      @media (max-width: 768px) {
+        #area-exportacao {
+          padding: 15px;
+        }
+        .linha-grid {
+          grid-template-columns: 1fr;
+        }
+
+        #cabecalho {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: space-between;
+          align-items: center;
+          padding-bottom: 20px;
+        }
+        .logo-cabecalho {
+          width: 55px;
+          height: 55px;
+          order: 1;
+        }
+        .titulos-cabecalho {
+          order: 2;
+          width: 100%;
+          margin-top: 15px;
+        }
+        .titulos-cabecalho h1 {
+          font-size: 1.4rem;
+        }
+        .titulos-cabecalho h2 {
+          font-size: 0.85rem;
+        }
+
+        .bloco-ciclo {
+          cursor: pointer;
+          -webkit-tap-highlight-color: transparent;
+        }
+        .bloco-ciclo:active {
+          background: #f0f0f0;
+        }
+
+        .accordion-header {
+          padding-bottom: 0;
+          border-bottom: none;
+        }
+        .accordion-icon {
+          display: block;
+        }
+
+        .lista-oficinas {
+          max-height: 0;
+          opacity: 0;
+          overflow: hidden;
+          margin-top: 0;
+          padding-top: 0;
+          border-top: 1px solid transparent;
+          transition:
+            max-height 0.4s ease,
+            opacity 0.3s ease,
+            margin-top 0.3s ease,
+            padding-top 0.3s ease;
+        }
+        .lista-oficinas.aberto {
+          max-height: 600px;
+          opacity: 1;
+          margin-top: 15px;
+          padding-top: 10px;
+          border-top-color: #e0e0e0;
+        }
+      }
     </style>
 </head>
 <body>
@@ -261,7 +401,7 @@
                     <ul class="nav-list">
                         <li><a href="index.html" class="nav-link">Início</a></li>
                         <li><a href="asa-norte.html" class="nav-link active">Ver Oficinas</a></li>
-                        <li><a href="taguatinga.html" class="nav-link">PITACO</a></li>
+                        <li><a href="pitaco.html" class="nav-link">PITACO</a></li>
                         <li><a href="equipe.html" class="nav-link">Equipe</a></li>
                     </ul>
                 </nav>
@@ -300,7 +440,7 @@
 
     <div class="controles">
       <button onclick="exportarParaImagem()">
-        Exportar Imagem do Calendário
+        Baixar calendário como imagem
       </button>
     </div>
 
@@ -709,8 +849,11 @@
 
       dados.ciclos.forEach((ciclo) => {
         htmlLegenda += `
-        <div class="bloco-ciclo" style="border-top-color: ${ciclo.corBorda};">
-          <h3 style="color: ${ciclo.corBorda}">${ciclo.nome}</h3>
+        <div class="bloco-ciclo" style="border-top-color: ${ciclo.corBorda};" onclick="toggleAccordion(event, this)">
+          <h3 class="accordion-header" style="color: ${ciclo.corBorda}">
+            <span>${ciclo.nome}</span>
+            <span class="accordion-icon">▼</span>
+          </h3>
           <div class="lista-oficinas">
             ${ciclo.oficinas
               .map((oficina) => {
@@ -747,20 +890,50 @@
       });
       containerLegenda.innerHTML = htmlLegenda;
 
+      // Função para abrir/fechar accordion (apenas mobile)
+      function toggleAccordion(event, elemento) {
+        if (window.innerWidth <= 768) {
+          if (event.target.closest('.oficina-card')) return;
+
+          const lista = elemento.querySelector('.lista-oficinas');
+          const icone = elemento.querySelector('.accordion-icon');
+          
+          if (lista.classList.contains('aberto')) {
+            lista.classList.remove('aberto');
+            icone.textContent = '▼';
+          } else {
+            lista.classList.add('aberto');
+            icone.textContent = '▲';
+          }
+        }
+      }
+
       // Função de exportar para imagem
       function exportarParaImagem() {
         const elemento = document.getElementById("area-exportacao");
-        html2canvas(elemento, {
-          scale: 2,
-          useCORS: true,
-        }).then((canvas) => {
-          const link = document.createElement("a");
-          link.download = "calendario-monitorias-2026.png";
-          link.href = canvas.toDataURL("image/png");
-          link.click();
-        });
+        const posicaoScroll = window.scrollY;
+        elemento.classList.add("forcar-desktop");
+
+        setTimeout(() => {
+          html2canvas(elemento, { 
+            scale: 2, 
+            useCORS: true,
+            backgroundColor: "#ffffff"
+          }).then((canvas) => {
+            const link = document.createElement("a");
+            link.download = "calendario-monitorias-2026.png";
+            link.href = canvas.toDataURL("image/png");
+            link.click();
+            elemento.classList.remove("forcar-desktop");
+            
+            window.scrollTo({
+              top: posicaoScroll,
+              left: 0,
+              behavior: "instant"
+            });
+          });
+        }, 100);
       }
     </script>
 </body>
 </html>
-
