@@ -7,6 +7,10 @@ export const legacyPages: LegacyPageDefinition[] = [
   { fileName: 'index.html', path: '/' },
   { fileName: 'asa-norte.html', path: '/asa-norte' },
   {
+    fileName: 'aulas-gravadas-ciencia-de-dados.html',
+    path: '/aulas-gravadas-ciencia-de-dados',
+  },
+  {
     fileName: 'aulas-gravadas-fundamentos-ciencia-de-dados.html',
     path: '/aulas-gravadas-fundamentos-ciencia-de-dados',
   },
