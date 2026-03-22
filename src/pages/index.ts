@@ -1,0 +1,15 @@
+export { HomePage } from './HomePage';
+export { EquipePage } from './EquipePage';
+export { AsaNortePage } from './AsaNortePage';
+export { PitacoPage } from './PitacoPage';
+export { AulasGravFundamentosPage } from './AulasGravFundamentosPage';
+export { AulasGravMLPage } from './AulasGravMLPage';
+export { OficinaBlenderPage } from './OficinaBlenderPage';
+export { OficinaWebPage } from './OficinaWebPage';
+export { OficinaLinuxPage } from './OficinaLinuxPage';
+export { OficinaLogicaPage } from './OficinaLogicaPage';
+export { OficinaFundComputacaoPage } from './OficinaFundComputacaoPage';
+export { OficinaCienciaDadosPage } from './OficinaCienciaDadosPage';
+export { OficinaMachineLearningPage } from './OficinaMachineLearningPage';
+export { OficinaSQLPage } from './OficinaSQLPage';
+export { OficinaRedesPage } from './OficinaRedesPage';
