@@ -1,11 +1,13 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { loadLegacyHtmlByFileName } from './legacyHtml';
 import { mapLegacyHrefToRoute } from './legacyRoutes';
 
 type PreparedHtml = {
   html: string;
   externalScripts: string[];
   inlineScripts: string[];
+  inlineStyles: string[];
 };
 
 const WINDOW_LOCATION_REGEX = /window\.location\.href\s*=\s*['\"]([^'\"]+)['\"]/;
@@ -33,7 +35,13 @@ const prepareLegacyHtml = (rawHtml: string): PreparedHtml => {
     ...Array.from(body.querySelectorAll('script:not([src])')).map((script) => script.textContent ?? ''),
   ].filter(Boolean);
 
+  const inlineStyles = [
+    ...Array.from(doc.head.querySelectorAll('style')).map((style) => style.textContent ?? ''),
+    ...Array.from(body.querySelectorAll('style')).map((style) => style.textContent ?? ''),
+  ].filter(Boolean);
+
   doc.querySelectorAll('script').forEach((script) => script.remove());
+  doc.querySelectorAll('style').forEach((style) => style.remove());
 
   body.querySelectorAll('a[href]').forEach((anchor) => {
     const href = anchor.getAttribute('href') ?? '';
@@ -79,6 +87,7 @@ const prepareLegacyHtml = (rawHtml: string): PreparedHtml => {
     html: body.innerHTML,
     externalScripts,
     inlineScripts,
+    inlineStyles,
   };
 };
 
@@ -87,39 +96,115 @@ type LegacyPageProps = {
 };
 
 export default function LegacyPage({ fileName }: LegacyPageProps) {
-  const [html, setHtml] = useState<string>('');
   const navigate = useNavigate();
   const containerRef = useRef<HTMLDivElement>(null);
-  const prepared = useMemo(() => prepareLegacyHtml(html), [html]);
+  const [rawHtml, setRawHtml] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     let cancelled = false;
+    setIsLoading(true);
 
-    const loadLegacyPage = async () => {
+    const loadPage = async () => {
       try {
-        const response = await fetch(`/legacy/${encodeURIComponent(fileName)}`);
-        if (!response.ok) {
-          throw new Error(`Falha ao carregar página legada: ${fileName}`);
-        }
-
-        const rawHtml = await response.text();
+        const loadedHtml = await loadLegacyHtmlByFileName(fileName);
         if (!cancelled) {
-          setHtml(rawHtml);
+          setRawHtml(loadedHtml ?? '');
         }
       } catch (error) {
-        console.error(error);
+        console.error('Falha ao carregar pagina legada:', error);
         if (!cancelled) {
-          setHtml('<main class="main-content"><section class="services-section"><div class="container"><h2 class="section-title">Página indisponível</h2></div></section></main>');
+          setRawHtml('');
+        }
+      } finally {
+        if (!cancelled) {
+          setIsLoading(false);
         }
       }
     };
 
-    void loadLegacyPage();
+    void loadPage();
 
     return () => {
       cancelled = true;
     };
   }, [fileName]);
+
+  const html =
+    rawHtml ||
+    '<main class="main-content"><section class="services-section"><div class="container"><h2 class="section-title">Pagina indisponivel</h2></div></section></main>';
+  const prepared = useMemo(() => prepareLegacyHtml(html), [html]);
+
+  useEffect(() => {
+    if (!rawHtml) {
+      return;
+    }
+
+    const doc = new DOMParser().parseFromString(rawHtml, 'text/html');
+    const pageTitle = doc.title?.trim();
+    if (pageTitle) {
+      document.title = pageTitle;
+    }
+  }, [rawHtml]);
+
+  useEffect(() => {
+    let disposed = false;
+    const appendedScripts: HTMLScriptElement[] = [];
+
+    const runLegacyScripts = async () => {
+      for (const src of prepared.externalScripts) {
+        if (disposed) {
+          break;
+        }
+
+        // Evita injetar o script global antigo do site para nao duplicar listeners.
+        if (src === 'script.js') {
+          continue;
+        }
+
+        const alreadyLoaded = document.querySelector(`script[src="${src}"]`);
+        if (alreadyLoaded) {
+          continue;
+        }
+
+        const script = document.createElement('script');
+        script.src = src;
+        script.async = false;
+        document.body.appendChild(script);
+        appendedScripts.push(script);
+
+        await new Promise<void>((resolve) => {
+          script.onload = () => resolve();
+          script.onerror = () => resolve();
+        });
+      }
+
+      for (const scriptContent of prepared.inlineScripts) {
+        if (disposed) {
+          break;
+        }
+
+        try {
+          new Function(scriptContent)();
+        } catch (error) {
+          console.error('Erro ao executar script legado:', error);
+        }
+      }
+
+      if (!disposed) {
+        document.dispatchEvent(new Event('DOMContentLoaded'));
+      }
+    };
+
+    void runLegacyScripts();
+
+    return () => {
+      disposed = true;
+      for (const script of appendedScripts) {
+        script.remove();
+      }
+    };
+  }, [prepared.externalScripts, prepared.inlineScripts]);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -182,57 +267,23 @@ export default function LegacyPage({ fileName }: LegacyPageProps) {
         cleanup();
       }
     };
-  }, [prepared.html, navigate]);
+  }, [prepared.html, navigate, fileName]);
 
-  useEffect(() => {
-    let disposed = false;
-    const appendedScripts: HTMLScriptElement[] = [];
+  if (isLoading) {
+    return (
+      <main className="main-content">
+        <section className="services-section">
+          <div className="container">
+            <h2 className="section-title">Carregando pagina...</h2>
+          </div>
+        </section>
+      </main>
+    );
+  }
 
-    const runScripts = async () => {
-      for (const src of prepared.externalScripts) {
-        if (disposed || src === 'script.js') {
-          continue;
-        }
+  const htmlWithStyles = `${prepared.inlineStyles
+    .map((styleContent) => `<style>${styleContent}</style>`)
+    .join('')}${prepared.html}`;
 
-        const script = document.createElement('script');
-        script.src = src;
-        script.async = false;
-        document.body.appendChild(script);
-        appendedScripts.push(script);
-
-        await new Promise<void>((resolve) => {
-          script.onload = () => resolve();
-          script.onerror = () => resolve();
-        });
-      }
-
-      for (const scriptContent of prepared.inlineScripts) {
-        if (disposed) {
-          break;
-        }
-
-        try {
-          // Script legado precisa de escopo global para manter o comportamento original.
-          new Function(scriptContent)();
-        } catch (error) {
-          console.error('Erro ao executar script legado:', error);
-        }
-      }
-
-      if (!disposed) {
-        document.dispatchEvent(new Event('DOMContentLoaded'));
-      }
-    };
-
-    void runScripts();
-
-    return () => {
-      disposed = true;
-      for (const script of appendedScripts) {
-        script.remove();
-      }
-    };
-  }, [prepared.externalScripts, prepared.inlineScripts]);
-
-  return <div ref={containerRef} dangerouslySetInnerHTML={{ __html: prepared.html }} />;
+  return <div ref={containerRef} dangerouslySetInnerHTML={{ __html: htmlWithStyles }} />;
 }
